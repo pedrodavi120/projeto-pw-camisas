@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head th:replace="~{layout :: head('Detalhes do Produto')}">
+    <title>Detalhes do Produto</title>
+</head>
+<body>
+
+    <!-- Nav Bar -->
+    <header th:replace="~{layout :: nav(false)}"></header>
+
+    <!-- Global Messages/Alerts -->
+    <div th:replace="~{layout :: alerts}"></div>
+
+    <!-- Main Container -->
+    <main class="page-container">
+        <!-- Breadcrumbs or back link -->
+        <div style="margin-bottom: 30px;">
+            <a th:href="@{/index}" class="link-action" style="font-size: 0.8rem; letter-spacing: 1px;">&larr; Voltar para a Loja</a>
+        </div>
+
+        <!-- Detail Layout Grid -->
+        <div class="detail-grid">
+            <!-- Left: Skewed Product Image -->
+            <div class="detail-img-container">
+                <img th:src="@{${item.imgUrl}}" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800" alt="Product Image">
+            </div>
+
+            <!-- Right: Product Details -->
+            <div class="detail-info">
+                <span class="detail-brand" th:text="${item.marca}">APEX SHIRTS</span>
+                <h1 class="detail-name" th:text="${item.nome}">Camiseta Pima Premium</h1>
+                <p class="detail-price" th:text="'$' + ${item.preco}">$4000</p>
+                
+                <div class="detail-divider"></div>
+                
+                <h3 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin: 10px 0 5px 0;">Descrição</h3>
+                <p class="detail-desc" th:text="${item.descricao}">
+                    Um item essencial para o guarda-roupa moderno. Confeccionada em algodão Pima premium com toque ultra macio e acabamento estruturado, esta peça se destaca pelo caimento perfeito e pelo corte contemporâneo minimalista.
+                </p>
+
+                <div class="detail-divider"></div>
+
+                <!-- Attributes list (Min 7 attributes shown) -->
+                <h3 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin: 10px 0 15px 0;">Especificações Técnicas</h3>
+                <div class="attributes-list">
+                    <div class="attribute-item">
+                        <span class="attribute-label">ID do Produto:</span>
+                        <span class="attribute-value" th:text="${item.id}">12</span>
+                    </div>
+                    <div class="attribute-item">
+                        <span class="attribute-label">Código SKU:</span>
+                        <span class="attribute-value" th:text="${item.codigoSku}">WVL-4002</span>
+                    </div>
+                    <div class="attribute-item">
+                        <span class="attribute-label">Tamanho:</span>
+                        <span class="attribute-value" th:text="${item.tamanho}">M</span>
+                    </div>
+                    <div class="attribute-item">
+                        <span class="attribute-label">Marca:</span>
+                        <span class="attribute-value" th:text="${item.marca}">APEX Shirts</span>
+                    </div>
+                    <div class="attribute-item">
+                        <span class="attribute-label">Status:</span>
+                        <span class="attribute-value" th:text="${item.isDeleted == null ? 'Disponível' : 'Deletado Logicamente'}">Disponível</span>
+                    </div>
+                    <div class="attribute-item">
+                        <span class="attribute-label">Tipo:</span>
+                        <span class="attribute-value">Camiseta Premium</span>
+                    </div>
+                    <div class="attribute-item" th:if="${item.isDeleted != null}">
+                        <span class="attribute-label">Data de Deleção:</span>
+                        <span class="attribute-value" th:text="${#dates.format(item.isDeleted, 'dd/MM/yyyy HH:mm')}">-</span>
+                    </div>
+                </div>
+
+                <div class="detail-divider"></div>
+
+                <!-- Action buttons -->
+                <div class="d-flex gap-3 mt-3">
+                    <a th:href="@{/adicionarCarrinho(id=${item.id})}" class="btn-black" style="flex-grow: 1; text-align: center;">Adicionar ao Carrinho</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer th:replace="~{layout :: footer}"></footer>
+
+</body>
+</html>

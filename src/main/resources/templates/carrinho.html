@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head th:replace="~{layout :: head('Seu Carrinho')}">
+    <title>Seu Carrinho</title>
+</head>
+<body>
+
+    <!-- Nav Bar -->
+    <header th:replace="~{layout :: nav(false)}"></header>
+
+    <!-- Global Messages/Alerts -->
+    <div th:replace="~{layout :: alerts}"></div>
+
+    <!-- Main Container -->
+    <main class="page-container">
+        <h1 class="page-title">Seu Carrinho</h1>
+
+        <!-- Check if session cart exists and is not empty -->
+        <div th:if="${session.carrinho != null and !session.carrinho.isEmpty()}">
+            <p style="color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 25px;">
+                Revise os itens selecionados antes de finalizar a sua compra.
+            </p>
+
+            <div class="custom-table-container">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Imagem</th>
+                            <th>Marca</th>
+                            <th>Tamanho</th>
+                            <th>Código SKU</th>
+                            <th>Preço Unitário</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Loop through cart items stored in HTTP Session -->
+                        <tr th:each="item : ${session.carrinho}">
+                            <td th:text="${item.nome}" style="font-weight: 500;">Camiseta Minimalista</td>
+                            <td>
+                                <img th:src="@{${item.imgUrl}}" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=100" class="table-img" alt="Thumbnail">
+                            </td>
+                            <td th:text="${item.marca}">APEX Shirts</td>
+                            <td th:text="${item.tamanho}">M</td>
+                            <td th:text="${item.codigoSku}">WVL-4002</td>
+                            <td th:text="'$' + ${item.preco}">$4000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Summary section -->
+            <div class="cart-summary">
+                <div>
+                    <span class="cart-total-label">Total da Compra</span>
+                    <!-- Total passed by backend controller -->
+                    <div class="cart-total-value" th:text="${total != null} ? '$' + ${total} : '$0.00'">$0.00</div>
+                </div>
+                <div class="d-flex gap-3">
+                    <a th:href="@{/finalizarCompra}" class="btn-black">Finalizar Compra</a>
+                    <a th:href="@{/index}" class="btn-outline">Continuar Comprando</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty state fallback if cart is empty -->
+        <div th:if="${session.carrinho == null or session.carrinho.isEmpty()}" style="text-align: center; padding: 60px 0;">
+            <p style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 30px;">
+                Não existem itens no seu carrinho de compras.
+            </p>
+            <a th:href="@{/index}" class="btn-black">Voltar Para a Loja</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer th:replace="~{layout :: footer}"></footer>
+
+</body>
+</html>

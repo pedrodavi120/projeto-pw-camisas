@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head th:replace="~{layout :: head('Home')}">
+    <title>Home</title>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero-section-dark">
+        <!-- Header Navigation inside Hero for absolute layering -->
+        <header th:replace="~{layout :: nav(true)}"></header>
+
+        <!-- Main Hero Content -->
+        <div class="hero-main-content">
+            <!-- Backdrop text -->
+            <div class="hero-backdrop-text">APEX</div>
+
+            <!-- Cursive overlay text -->
+            <div class="hero-cursive-overlay">
+                <span class="cursive-purple">Oversized Fit</span>
+                <span class="handwritten-white">Criado para você.</span>
+            </div>
+
+            <!-- Product Display -->
+            <div class="hero-product-display">
+                <img th:src="@{/images/camisa-ov2.png}" src="images/camisa-ov2.png" alt="Camiseta Oversized Costas" class="hero-product-img img-back">
+                <img th:src="@{/images/camisa-ov1.png}" src="images/camisa-ov1.png" alt="Camiseta Oversized Frente" class="hero-product-img img-front">
+            </div>
+        </div>
+
+        <!-- Bottom Info -->
+        <div class="hero-bottom-info">
+            <div class="hero-preorder-info">
+                <h3 class="hero-preorder-title">PRÉ-VENDA LIMITADA</h3>
+                <p class="hero-preorder-desc">Adquira a camiseta oversized definitiva da Apex. Desenvolvida com modelagem urbana exclusiva e algodão de alta gramatura para um caimento perfeito e conforto superior.</p>
+                <a th:href="@{#products}" class="btn-hero-catalog">Ver Catálogo</a>
+            </div>
+
+            <!-- Glassmorphic Card -->
+            <div class="hero-glass-card">
+                <h4 class="glass-card-title">EXCLUSIVO DESTE MÊS</h4>
+                <p class="glass-card-desc">Garanta a sua peça na pré-venda e receba frete grátis para todo o Brasil + embalagem colecionável.</p>
+                <a th:href="@{#products}" class="glass-card-link">
+                    Ver mais detalhes
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Messages/Alerts -->
+    <div th:replace="~{layout :: alerts}"></div>
+
+    <!-- Filters Section -->
+    <div class="filters-container" id="products">
+        <button class="filter-btn active">Todos</button>
+        <button class="filter-btn">Básicas</button>
+        <button class="filter-btn">Oversized</button>
+        <button class="filter-btn">Estampadas</button>
+        <button class="filter-btn">Manga Longa</button>
+        <button class="filter-btn">Gola Alta</button>
+        <button class="filter-btn">Algodão Pima</button>
+        <button class="filter-btn">Esportivas</button>
+    </div>
+
+    <!-- Product Grid Section -->
+    <section class="product-grid-section">
+        <h2 class="section-title">NOSSAS PEÇAS</h2>
+        
+        <!-- Loop items that are not deleted (isDeleted == null) -->
+        <div class="product-grid">
+            <div class="product-card" th:each="item : ${itens}" th:if="${item.isDeleted == null}">
+                <!-- Image Container with bottom-right diagonal cut -->
+                <div class="product-image-container">
+                    <img th:src="@{${item.imgUrl}}" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" alt="Imagem do Produto">
+                </div>
+                <!-- Product Information -->
+                <div class="product-info">
+                    <h3 class="product-name" th:text="${item.nome}">Camiseta Minimalista</h3>
+                    <p class="product-price" th:text="'$' + ${item.preco}">$4000</p>
+                    
+                    <!-- Hover Actions -->
+                    <div class="product-actions">
+                        <a th:href="@{/adicionarCarrinho(id=${item.id})}" class="btn-card">Adicionar</a>
+                        <a th:href="@{/detalhe/{id}(id=${item.id})}" class="btn-card">Detalhes</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Static Placeholder Cards shown if backend lists empty during development -->
+            <div class="product-card" th:if="${#lists.isEmpty(itens)}">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" alt="Camiseta Pima Premium">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Camiseta Pima Premium</h3>
+                    <p class="product-price">$180</p>
+                    <div class="product-actions">
+                        <a href="#" class="btn-card">Adicionar</a>
+                        <a href="#" class="btn-card">Detalhes</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" th:if="${#lists.isEmpty(itens)}">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500" alt="Camiseta Heavyweight Oversized">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Camiseta Heavyweight Oversized</h3>
+                    <p class="product-price">$220</p>
+                    <div class="product-actions">
+                        <a href="#" class="btn-card">Adicionar</a>
+                        <a href="#" class="btn-card">Detalhes</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" th:if="${#lists.isEmpty(itens)}">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500" alt="Camiseta Gola Alta Vintage">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Camiseta Gola Alta Vintage</h3>
+                    <p class="product-price">$190</p>
+                    <div class="product-actions">
+                        <a href="#" class="btn-card">Adicionar</a>
+                        <a href="#" class="btn-card">Detalhes</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" th:if="${#lists.isEmpty(itens)}">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=500" alt="Camiseta Classic Estampada">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Camiseta Classic Estampada</h3>
+                    <p class="product-price">$150</p>
+                    <div class="product-actions">
+                        <a href="#" class="btn-card">Adicionar</a>
+                        <a href="#" class="btn-card">Detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer th:replace="~{layout :: footer}"></footer>
+
+</body>
+</html>

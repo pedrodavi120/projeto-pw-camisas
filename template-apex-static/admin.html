@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrador | APEX SHIRTS</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header-nav">
+        <div class="nav-group">
+            <a href="index.html">Coleção</a>
+            <a href="admin.html" class="active">Administrador</a>
+            <a href="cadastro.html">Novo Cadastro</a>
+        </div>
+        <div class="logo-container">
+            <a href="index.html" style="text-decoration: none;">
+                <h1 class="logo-title">APEX</h1>
+                <span class="logo-sub">SHIRTS</span>
+            </a>
+        </div>
+        <div class="nav-group">
+            <a href="carrinho.html">Carrinho (3)</a>
+            <span style="color: var(--text-muted); font-size: 0.75rem;">Olá, <strong>Visitante</strong></span>
+            <a href="#">Sair</a>
+        </div>
+    </header>
+
+    <!-- Global Messages/Alerts Demo -->
+    <div class="alert-container">
+        <div class="custom-alert">
+            <span>Produto atualizado com sucesso! (Exemplo de feedback de ação)</span>
+            <button class="btn-close" onclick="this.parentElement.style.display='none'">&times;</button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="page-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="page-title" style="border: none; margin: 0; padding: 0;">Painel Administrativo</h1>
+            <a href="cadastro.html" class="btn-black">Novo Cadastro</a>
+        </div>
+
+        <p style="color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 25px;">
+            Gerenciamento do catálogo de camisetas APEX. Demonstração de listagem física e deleções lógicas (Soft-delete).
+        </p>
+
+        <!-- Admin Table -->
+        <div class="custom-table-container">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Imagem</th>
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Marca</th>
+                        <th>Tamanho</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Item 1 (Active) -->
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=100" class="table-img" alt="Camiseta Pima Premium">
+                        </td>
+                        <td style="font-weight: 500;">Camiseta Pima Premium</td>
+                        <td>$180</td>
+                        <td>APEX Shirts</td>
+                        <td>M</td>
+                        <td><span class="badge-active">Ativo</span></td>
+                        <td>
+                            <div class="action-links">
+                                <a href="editar.html" class="link-action">Editar</a>
+                                <a href="#" class="link-action delete" onclick="alert('Item deletado logicamente (soft-delete)! Status mudará para Excluído.')">Deletar</a>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Item 2 (Active) -->
+                    <tr>
+                        <td>2</td>
+                        <td>
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" class="table-img" alt="Camiseta Heavyweight Oversized">
+                        </td>
+                        <td style="font-weight: 500;">Camiseta Heavyweight Oversized</td>
+                        <td>$220</td>
+                        <td>APEX Shirts</td>
+                        <td>G</td>
+                        <td><span class="badge-active">Ativo</span></td>
+                        <td>
+                            <div class="action-links">
+                                <a href="editar.html" class="link-action">Editar</a>
+                                <a href="#" class="link-action delete" onclick="alert('Item deletado logicamente (soft-delete)!')">Deletar</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Item 3 (Soft-Deleted) -->
+                    <tr>
+                        <td>3</td>
+                        <td>
+                            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=100" class="table-img" alt="Camiseta Gola Alta Vintage">
+                        </td>
+                        <td style="font-weight: 500;">Camiseta Gola Alta Vintage</td>
+                        <td>$190</td>
+                        <td>APEX Shirts</td>
+                        <td>P</td>
+                        <td><span class="badge-deleted" title="Excluído logicamente em 22/05/2026">Excluído</span></td>
+                        <td>
+                            <div class="action-links">
+                                <a href="editar.html" class="link-action">Editar</a>
+                                <a href="#" class="link-action restore" onclick="alert('Item restaurado logicamente no banco!')">Restaurar</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Item 4 (Active) -->
+                    <tr>
+                        <td>4</td>
+                        <td>
+                            <img src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=100" class="table-img" alt="Camiseta Classic Estampada">
+                        </td>
+                        <td style="font-weight: 500;">Camiseta Classic Estampada</td>
+                        <td>$150</td>
+                        <td>APEX Shirts</td>
+                        <td>GG</td>
+                        <td><span class="badge-active">Ativo</span></td>
+                        <td>
+                            <div class="action-links">
+                                <a href="editar.html" class="link-action">Editar</a>
+                                <a href="#" class="link-action delete" onclick="alert('Item deletado logicamente!')">Deletar</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <p>&copy; 2026 APEX SHIRTS. Todos os direitos reservados. Projeto Prático de Programação Web.</p>
+    </footer>
+
+</body>
+</html>

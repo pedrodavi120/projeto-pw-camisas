@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head th:replace="~{layout :: head('Cadastrar Camisa')}">
+    <title>Cadastrar Camisa</title>
+</head>
+<body>
+
+    <!-- Nav Bar -->
+    <header th:replace="~{layout :: nav(false)}"></header>
+
+    <!-- Global Messages/Alerts -->
+    <div th:replace="~{layout :: alerts}"></div>
+
+    <!-- Main Container -->
+    <main class="page-container">
+        <h1 class="page-title">Cadastrar Camisa</h1>
+
+        <div class="form-container">
+            <p style="color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 30px;">
+                Preencha as informações detalhadas abaixo para inserir um novo produto no catálogo.
+            </p>
+
+            <form th:action="@{/salvar}" th:object="${itemForm}" method="post" class="needs-validation">
+                <!-- ID field is omitted or hidden since it is auto-generated on new creations -->
+                
+                <!-- Nome Field (String, required) -->
+                <div class="form-group">
+                    <label class="form-label" for="nome">Nome do Produto</label>
+                    <input type="text" id="nome" th:field="*{nome}" 
+                           class="form-control-custom" th:errorclass="is-invalid-custom" 
+                           placeholder="Ex: Camiseta Oversized Algodão Egípcio" required>
+                    <div class="invalid-feedback-custom" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
+                        Erro no nome.
+                    </div>
+                </div>
+
+                <!-- Preço Field (Double/BigDecimal, required) -->
+                <div class="form-group">
+                    <label class="form-label" for="preco">Preço ($)</label>
+                    <input type="number" step="0.01" id="preco" th:field="*{preco}" 
+                           class="form-control-custom" th:errorclass="is-invalid-custom" 
+                           placeholder="Ex: 4000" required>
+                    <div class="invalid-feedback-custom" th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}">
+                        Erro no preço.
+                    </div>
+                </div>
+
+                <!-- Marca Field (String, required) -->
+                <div class="form-group">
+                    <label class="form-label" for="marca">Marca</label>
+                    <input type="text" id="marca" th:field="*{marca}" 
+                           class="form-control-custom" th:errorclass="is-invalid-custom" 
+                           placeholder="Ex: APEX SHIRTS" required>
+                    <div class="invalid-feedback-custom" th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}">
+                        Erro na marca.
+                    </div>
+                </div>
+
+                <!-- Tamanho Field (String dropdown, required) -->
+                <div class="form-group">
+                    <label class="form-label" for="tamanho">Tamanho</label>
+                    <select id="tamanho" th:field="*{tamanho}" class="form-select-custom" th:errorclass="is-invalid-custom" required>
+                        <option value="">Selecione o tamanho</option>
+                        <option value="PP">PP (Muito Pequeno)</option>
+                        <option value="P">P (Pequeno)</option>
+                        <option value="M">M (Médio)</option>
+                        <option value="G">G (Grande)</option>
+                        <option value="GG">GG (Muito Grande)</option>
+                    </select>
+                    <div class="invalid-feedback-custom" th:if="${#fields.hasErrors('tamanho')}" th:errors="*{tamanho}">
+                        Erro no tamanho.
+                    </div>
+                </div>
+
+                <!-- Código do Produto/SKU Field with Pattern validation (ex: ABC-1234) -->
+                <div class="form-group">
+                    <label class="form-label" for="codigoSku">Código SKU (Formato: AAA-9999)</label>
+                    <input type="text" id="codigoSku" th:field="*{codigoSku}" 
+                           class="form-control-custom" th:errorclass="is-invalid-custom" 
+                           placeholder="Ex: CAM-5421" required>
+                    <div class="invalid-feedback-custom" th:if="${#fields.hasErrors('codigoSku')}" th:errors="*{codigoSku}">
+                        Formato inválido. Deve corresponder a AAA-9999 (Ex: TSX-4001).
+                    </div>
+                </div>
+
+                <!-- Descrição Field (String) -->
+                <div class="form-group">
+                    <label class="form-label" for="descricao">Descrição Curta</label>
+                    <textarea id="descricao" th:field="*{descricao}" rows="4" 
+                              class="form-control-custom" th:errorclass="is-invalid-custom" 
+                              placeholder="Fibras naturais de altíssima qualidade..."></textarea>
+                    <div class="invalid-feedback-custom" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}">
+                        Erro na descrição.
+                    </div>
+                </div>
+
+                <!-- Submit / Cancel Actions -->
+                <div class="d-flex gap-3 mt-4">
+                    <button type="submit" class="btn-black">Salvar Produto</button>
+                    <a th:href="@{/admin}" class="btn-outline">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer th:replace="~{layout :: footer}"></footer>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Camisa | APEX SHIRTS</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header-nav">
+        <div class="nav-group">
+            <a href="index.html">Coleção</a>
+            <a href="admin.html">Administrador</a>
+            <a href="cadastro.html">Novo Cadastro</a>
+        </div>
+        <div class="logo-container">
+            <a href="index.html" style="text-decoration: none;">
+                <h1 class="logo-title">APEX</h1>
+                <span class="logo-sub">SHIRTS</span>
+            </a>
+        </div>
+        <div class="nav-group">
+            <a href="carrinho.html">Carrinho (3)</a>
+            <span style="color: var(--text-muted); font-size: 0.75rem;">Olá, <strong>Visitante</strong></span>
+            <a href="#">Sair</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="page-container">
+        <h1 class="page-title">Editar Camisa</h1>
+
+        <div class="form-container">
+            <p style="color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 30px;">
+                Modifique as especificações abaixo para atualizar o modelo de camiseta selecionado.
+            </p>
+
+            <form action="admin.html" method="GET" class="needs-validation">
+                
+                <!-- Nome Field (String) -->
+                <div class="form-group">
+                    <label class="form-label" for="nome">Nome do Produto</label>
+                    <input type="text" id="nome" name="nome" class="form-control-custom" value="Camiseta Pima Premium" required>
+                </div>
+
+                <!-- Preço Field (Double) -->
+                <div class="form-group">
+                    <label class="form-label" for="preco">Preço ($)</label>
+                    <input type="number" step="0.01" id="preco" name="preco" class="form-control-custom" value="180.00" required>
+                </div>
+
+                <!-- Marca Field (String) -->
+                <div class="form-group">
+                    <label class="form-label" for="marca">Marca</label>
+                    <input type="text" id="marca" name="marca" class="form-control-custom" value="APEX Shirts" required>
+                </div>
+
+                <!-- Tamanho Field (Dropdown Selection) -->
+                <div class="form-group">
+                    <label class="form-label" for="tamanho">Tamanho</label>
+                    <select id="tamanho" name="tamanho" class="form-select-custom" required>
+                        <option value="">Selecione o tamanho</option>
+                        <option value="PP">PP (Muito Pequeno)</option>
+                        <option value="P">P (Pequeno)</option>
+                        <option value="M" selected>M (Médio)</option>
+                        <option value="G">G (Grande)</option>
+                        <option value="GG">GG (Muito Grande)</option>
+                    </select>
+                </div>
+
+                <!-- Código do Produto/SKU Field -->
+                <div class="form-group">
+                    <label class="form-label" for="codigoSku">Código SKU (Formato: AAA-9999)</label>
+                    <input type="text" id="codigoSku" name="codigoSku" class="form-control-custom" value="APX-4001" placeholder="Ex: APX-4001" required>
+                </div>
+
+                <!-- Descrição Field (Textarea) -->
+                <div class="form-group">
+                    <label class="form-label" for="descricao">Descrição Curta</label>
+                    <textarea id="descricao" name="descricao" rows="4" class="form-control-custom">Uma camiseta essencial confeccionada em algodão Pima de altíssima qualidade, com modelagem clássica estruturada e corte reto contemporâneo.</textarea>
+                </div>
+
+                <!-- Submit / Cancel Actions -->
+                <div class="d-flex gap-3 mt-4">
+                    <button type="submit" class="btn-black" onclick="alert('Atualização efetuada com sucesso (POST /salvar)! Redirecionando para o admin.')">Atualizar Produto</button>
+                    <a href="admin.html" class="btn-outline">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <p>&copy; 2026 APEX SHIRTS. Todos os direitos reservados. Projeto Prático de Programação Web.</p>
+    </footer>
+
+</body>
+</html>

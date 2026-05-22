@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title} + ' | APEX SHIRTS'"></title>
+    <!-- Bootstrap 5 CSS for base elements (grid, alerts, forms) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom minimalist stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <!-- Header & Navigation Fragment -->
+    <!-- Header & Navigation Fragment -->
+    <header th:fragment="nav(isDark)" class="header-nav" th:classappend="${isDark != null and isDark ? 'header-dark' : ''}">
+        <!-- Left Menu -->
+        <div class="nav-group">
+            <a th:href="@{/index}">Coleção</a>
+            <a th:href="@{/admin}" sec:authorize="hasRole('ROLE_ADMIN')">Administrador</a>
+            <a th:href="@{/cadastro}" sec:authorize="hasRole('ROLE_ADMIN')">Novo Item</a>
+        </div>
+
+        <!-- Center Logo -->
+        <div class="logo-container">
+            <a th:href="@{/index}" style="text-decoration: none;" th:styleappend="${isDark != null and isDark ? 'color: #fff;' : ''}">
+                <h1 class="logo-title">APEX</h1>
+                <span class="logo-sub" th:styleappend="${isDark != null and isDark ? 'color: rgba(255,255,255,0.5);' : ''}">SHIRTS</span>
+            </a>
+        </div>
+
+        <!-- Right Menu (User Authentication & Cart) -->
+        <div class="nav-group">
+            <!-- Cart Link with Dynamic Count -->
+            <a th:href="@{/verCarrinho}" th:class="${isDark != null and isDark ? 'btn-preorder' : ''}">
+                Carrinho (<span th:text="${session.carrinho != null ? session.carrinho.size() : 0}">0</span>)
+            </a>
+            
+            <!-- Guest Greeting -->
+            <span sec:authorize="!isAuthenticated()" style="font-size: 0.75rem; text-transform: none;" 
+                  th:styleappend="${isDark != null and isDark ? 'color: rgba(255,255,255,0.6); margin-left: 10px;' : 'color: var(--text-muted);'}">
+                Olá, Visitante
+            </span>
+
+            <!-- User Greeting -->
+            <span sec:authorize="isAuthenticated()" style="font-size: 0.75rem;"
+                  th:styleappend="${isDark != null and isDark ? 'color: rgba(255,255,255,0.6); margin-left: 10px;' : 'color: var(--text-muted);'}">
+                Olá, <strong sec:authentication="name"></strong>
+            </span>
+            
+            <!-- Logout Form if Logged In -->
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" style="display: inline; margin: 0;" th:styleappend="${isDark != null and isDark ? 'margin-left: 15px;' : ''}">
+                <button type="submit" style="background: none; border: none; padding: 0; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; font-weight: 500; cursor: pointer;"
+                        th:styleappend="${isDark != null and isDark ? 'color: #ffffff;' : 'color: var(--text-color);'}">
+                    Sair
+                </button>
+            </form>
+
+            <!-- Login Link if Guest -->
+            <a sec:authorize="!isAuthenticated()" th:href="@{/login}"
+               th:styleappend="${isDark != null and isDark ? 'margin-left: 15px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; font-weight: 500; color: #ffffff;' : ''}">Entrar</a>
+        </div>
+    </header>
+
+    <!-- Global Alerts Section (Included in layout body or called via replacement) -->
+    <div th:fragment="alerts" class="alert-container">
+        <!-- Success Flash Message -->
+        <div th:if="${mensagem}" class="custom-alert alert-success-custom">
+            <span th:text="${mensagem}">Operação realizada com sucesso!</span>
+            <button class="btn-close" onclick="this.parentElement.style.display='none'">&times;</button>
+        </div>
+        <!-- Error Flash Message -->
+        <div th:if="${erro}" class="custom-alert alert-danger-custom">
+            <span th:text="${erro}">Ocorreu um erro no processamento.</span>
+            <button class="btn-close" onclick="this.parentElement.style.display='none'">&times;</button>
+        </div>
+    </div>
+
+    <!-- Main Content Placeholder -->
+    <main class="page-container">
+        <p>This is a layout template placeholder.</p>
+    </main>
+
+    <!-- Footer Fragment -->
+    <footer th:fragment="footer" class="footer-section">
+        <p>&copy; 2026 APEX SHIRTS. Todos os direitos reservados. Projeto Prático de Programação Web.</p>
+    </footer>
+
+    <!-- Bootstrap 5 Bundle JS (Optional but useful for modal/alerts) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
