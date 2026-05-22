@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom minimalist stylesheet -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" th:href="@{/images/icon.png}">
 </head>
 <body>
 
@@ -23,9 +25,11 @@
 
         <!-- Center Logo -->
         <div class="logo-container">
-            <a th:href="@{/index}" style="text-decoration: none;" th:styleappend="${isDark != null and isDark ? 'color: #fff;' : ''}">
-                <h1 class="logo-title">APEX</h1>
-                <span class="logo-sub" th:styleappend="${isDark != null and isDark ? 'color: rgba(255,255,255,0.5);' : ''}">SHIRTS</span>
+            <a th:href="@{/index}" style="text-decoration: none;">
+                <img th:src="${isDark != null and isDark} ? @{/images/logo-apex-branco.png} : @{/images/logo-apex.png}" 
+                     src="/images/logo-apex.png" 
+                     alt="APEX SHIRTS" 
+                     style="height: 40px; width: auto; display: block; margin: 0 auto;">
             </a>
         </div>
 
