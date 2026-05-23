@@ -71,10 +71,10 @@
         
         <!-- Loop items that are not deleted (isDeleted == null) -->
         <div class="product-grid">
-            <div class="product-card" th:each="item : ${itens}" th:if="${item.isDeleted == null}">
+            <div class="product-card" th:each="item : ${camisetas}">
                 <!-- Image Container with bottom-right diagonal cut -->
                 <div class="product-image-container">
-                    <img th:src="@{${item.imgUrl}}" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" alt="Imagem do Produto">
+                    <img th:src="@{${item.imagemUrl}}" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" alt="Imagem do Produto">
                 </div>
                 <!-- Product Information -->
                 <div class="product-info">
@@ -90,7 +90,7 @@
             </div>
             
             <!-- Static Placeholder Cards shown if backend lists empty during development -->
-            <div class="product-card" th:if="${#lists.isEmpty(itens)}">
+            <div class="product-card" th:if="${#lists.isEmpty(camisetas)}">
                 <div class="product-image-container">
                     <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" alt="Camiseta Pima Premium">
                 </div>

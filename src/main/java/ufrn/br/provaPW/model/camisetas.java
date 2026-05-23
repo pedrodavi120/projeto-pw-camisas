@@ -21,9 +21,19 @@ public class camisetas {
 
     private Long id;
     private String nome;
+    private String marca;
     private String descricao;
     private BigDecimal preco;
     private String tamanho;
     private Date isDeleted;
     private String imagemUrl;
+    private String codigo;
+
+    public String getCodigo() {
+        return this.codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 }
