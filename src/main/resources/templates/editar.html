@@ -22,7 +22,7 @@
                 Modifique as informações necessárias do item abaixo. Lembre-se que campos marcados são obrigatórios.
             </p>
 
-            <form th:action="@{/salvar}" th:object="${itemForm}" method="post" class="needs-validation">
+            <form th:action="@{/salvar}" th:object="${camisetaDto}" method="post" class="needs-validation">
                 <!-- Hidden inputs to preserve key data (ID and existing image URL) -->
                 <input type="hidden" th:field="*{id}" />
                 <input type="hidden" th:field="*{imgUrl}" />

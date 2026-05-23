@@ -44,10 +44,10 @@
                     <tr th:each="item : ${camisetas}">
                         <td th:text="${item.id}">1</td>
                         <td>
-                            <img th:src="@{${item.imagemUrl}}" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=100" class="table-img" alt="Thumbnail">
+                            <img th:src="@{${item.imgUrl}}" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=100" class="table-img" alt="Thumbnail">
                         </td>
                         <td th:text="${item.nome}" style="font-weight: 500;">Camiseta Minimalista</td>
-                        <td th:text="'$' + ${item.preco}">$4000</td>
+                        <td th:text="'R$ ' + ${item.preco}">R$ 4000</td>
                         <td th:text="${item.marca}">APEX Shirts</td>
                         <td th:text="${item.tamanho}">M</td>
                         <td>
@@ -75,7 +75,7 @@
                             <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=100" class="table-img" alt="Demo">
                         </td>
                         <td style="font-weight: 500;">Camiseta Pima Regular</td>
-                        <td>$180</td>
+                        <td>R$ 180</td>
                         <td>APEX Shirts</td>
                         <td>M</td>
                         <td><span class="badge-active">Ativo</span></td>

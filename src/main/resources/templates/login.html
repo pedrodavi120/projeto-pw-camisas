@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head th:replace="~{layout :: head('Login')}">
+    <title>Entrar</title>
+</head>
+<body>
+
+    <!-- Nav Bar -->
+    <header th:replace="~{layout :: nav(false)}"></header>
+
+    <!-- Main Container -->
+    <main class="page-container">
+        <h1 class="page-title">Área de Clientes</h1>
+
+        <div class="form-container">
+            <p style="color: var(--text-muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 30px;">
+                Identifique-se para acessar o carrinho e painéis do sistema.
+            </p>
+
+            <!-- Formulário de login processado pelo Spring Security -->
+            <form th:action="@{/login}" method="post" class="needs-validation">
+                
+                <!-- Alerta se houver erro de login -->
+                <div th:if="${param.error}" class="custom-alert alert-danger-custom mb-4" style="margin-top: 0;">
+                    <span>Usuário ou senha inválidos. Tente novamente.</span>
+                </div>
+                
+                <!-- Alerta se o usuário tiver feito logout -->
+                <div th:if="${param.logout}" class="custom-alert alert-success-custom mb-4" style="margin-top: 0;">
+                    <span>Você saiu da sua conta com sucesso!</span>
+                </div>
+
+                <!-- Campo Nome de Usuário -->
+                <div class="form-group">
+                    <label class="form-label" for="username">Nome de Usuário</label>
+                    <input type="text" id="username" name="username" class="form-control-custom" placeholder="Ex: Visitante ou Administrador" required autofocus>
+                </div>
+
+                <!-- Campo Senha -->
+                <div class="form-group">
+                    <label class="form-label" for="password">Senha</label>
+                    <input type="password" id="password" name="password" class="form-control-custom" placeholder="Sua senha secreta" required>
+                </div>
+
+                <!-- Dica rápida de credenciais de teste (Importante para a correção do Professor) -->
+                <div style="background-color: var(--card-bg); padding: 18px; border-left: 4px solid var(--purple-deep); margin-bottom: 25px; font-size: 0.85rem;">
+                    <strong style="color: var(--purple-deep); text-transform: uppercase; font-size: 0.75rem; display: block; margin-bottom: 8px; letter-spacing: 1px;">Credenciais de Acesso (Questão 14):</strong>
+                    <ul style="margin: 0; padding-left: 15px; color: var(--text-muted); line-height: 1.6;">
+                        <li><strong>Cliente/Visitante:</strong> Usuário <code>Visitante</code> | Senha <code>visitante123</code></li>
+                        <li><strong>Administrador:</strong> Usuário <code>Administrador</code> | Senha <code>admin123</code></li>
+                    </ul>
+                </div>
+
+                <!-- Botão de Enviar -->
+                <div class="d-flex gap-3 mt-4">
+                    <button type="submit" class="btn-black" style="width: 100%; text-align: center;">Entrar na Conta</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer th:replace="~{layout :: footer}"></footer>
+
+</body>
+</html>

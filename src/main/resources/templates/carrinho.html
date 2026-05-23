@@ -45,7 +45,7 @@
                             <td th:text="${item.marca}">APEX Shirts</td>
                             <td th:text="${item.tamanho}">M</td>
                             <td th:text="${item.codigoSku}">WVL-4002</td>
-                            <td th:text="'$' + ${item.preco}">$4000</td>
+                            <td th:text="'R$ ' + ${item.preco}">R$ 4000</td>
                         </tr>
                     </tbody>
                 </table>
@@ -56,7 +56,7 @@
                 <div>
                     <span class="cart-total-label">Total da Compra</span>
                     <!-- Total passed by backend controller -->
-                    <div class="cart-total-value" th:text="${total != null} ? '$' + ${total} : '$0.00'">$0.00</div>
+                    <div class="cart-total-value" th:text="${total != null} ? 'R$ ' + ${total} : 'R$ 0,00'">R$ 0,00</div>
                 </div>
                 <div class="d-flex gap-3">
                     <a th:href="@{/finalizarCompra}" class="btn-black">Finalizar Compra</a>
