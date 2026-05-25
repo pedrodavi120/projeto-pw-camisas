@@ -67,4 +67,4 @@ mvn spring-boot:run
 mvn spring-boot:run
 ```
 
-Acesse a aplicação em: **[http://localhost:8080](http://localhost:8080)**
+Acesse a aplicação em: **[apex-shirts.onrender.com](https://apex-shirts.onrender.com)**
