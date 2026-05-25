@@ -16,6 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class camisetas {
+    // Questão 1: Atributo ID e outros 7 atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +26,10 @@ public class camisetas {
     private String descricao;
     private BigDecimal preco;
     private String tamanho;
-    private Date isDeleted;
+
+    // Questão 1 e 10: Atributo isDeleted (Long para timestamp)
+    private Long isDeleted;
+    
     private String imgUrl;
     private String codigoSku;
 
@@ -42,8 +46,8 @@ public class camisetas {
     public void setPreco(BigDecimal preco) { this.preco = preco; }
     public String getTamanho() { return tamanho; }
     public void setTamanho(String tamanho) { this.tamanho = tamanho; }
-    public Date getIsDeleted() { return isDeleted; }
-    public void setIsDeleted(Date isDeleted) { this.isDeleted = isDeleted; }
+    public Long getIsDeleted() { return isDeleted; }
+    public void setIsDeleted(Long isDeleted) { this.isDeleted = isDeleted; }
     public String getImgUrl() { return imgUrl; }
     public void setImgUrl(String imgUrl) { this.imgUrl = imgUrl; }
     public String getCodigoSku() { return codigoSku; }

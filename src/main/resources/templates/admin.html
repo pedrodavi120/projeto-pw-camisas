@@ -53,7 +53,7 @@
                         <td>
                             <!-- Status Badges -->
                             <span th:if="${item.isDeleted == null}" class="badge-active">Ativo</span>
-                            <span th:if="${item.isDeleted != null}" class="badge-deleted" th:title="'Excluído em: ' + ${#dates.format(item.isDeleted, 'dd/MM/yyyy HH:mm')}">Excluído</span>
+                            <span th:if="${item.isDeleted != null}" class="badge-deleted">Excluído</span>
                         </td>
                         <td>
                             <div class="action-links">

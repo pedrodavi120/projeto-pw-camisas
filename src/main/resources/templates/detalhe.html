@@ -69,10 +69,6 @@
                         <span class="attribute-label">Tipo:</span>
                         <span class="attribute-value">Camiseta Premium</span>
                     </div>
-                    <div class="attribute-item" th:if="${item.isDeleted != null}">
-                        <span class="attribute-label">Data de Deleção:</span>
-                        <span class="attribute-value" th:text="${#dates.format(item.isDeleted, 'dd/MM/yyyy HH:mm')}">-</span>
-                    </div>
                 </div>
 
                 <div class="detail-divider"></div>

@@ -7,15 +7,18 @@ import jakarta.validation.constraints.Pattern;
 
 import java.math.BigDecimal;
 
+// Questão 3: Implementação do padrão DTO / Form Object
 @Data
 public class camisetaDTO {
 
     private Long id;
 
+    // Questão 3: Atributo com @Pattern (Regex) para validar o SKU
     @NotBlank(message = "O código é obrigatório")
     @Pattern(regexp = "^[A-Z]{3}-\\d{4}$", message = "Formato inválido. Deve corresponder a AAA-9999 (Ex: TSX-4001).")
     private String codigoSku;
     
+    // Questão 3: Uso de @NotBlank conforme solicitado
     @NotBlank(message = "O nome é obrigatório")
     private String nome;
 
@@ -28,6 +31,7 @@ public class camisetaDTO {
     @NotNull(message = "O preço é obrigatório")
     private BigDecimal preco;
 
+    // Questão 3: Adicionado Regex para validar tamanhos permitidos
     @NotBlank(message = "O tamanho é obrigatório")
     @Pattern(regexp = "P|M|G|GG", message = "O tamanho deve ser P, M, G ou GG")
     private String tamanho;

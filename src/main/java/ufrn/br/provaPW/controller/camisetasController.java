@@ -29,14 +29,16 @@ public class camisetasController {
 
     @GetMapping({"/", "/index"})
     public String index(Model model, HttpSession session) {
+        // Questão 4: Listar apenas itens não deletados (isDeleted == null)
         List<camisetas> camisetasList = service.listarAtivos();
         
         List<camisetas> carrinho = (List<camisetas>) session.getAttribute("carrinho");
         int quantidadeCarrinho = (carrinho == null) ? 0 : carrinho.size();
         
+        // Questão 4 e 11: Exibir quantidade de itens no carrinho
         model.addAttribute("quantidadeCarrinho", quantidadeCarrinho);
         model.addAttribute("camisetas", camisetasList);
-        return "index"; // Retorna o nome da view index.html (Questão 4)
+        return "index"; // Questão 4
     }
 
     @GetMapping("/camisetas")
@@ -46,15 +48,17 @@ public class camisetasController {
 
     @GetMapping("/admin")
     public String admin(Model model) {
+        // Questão 5: Listar todos os itens (mesmo deletados logicamente)
         List<camisetas> camisetasList = service.listarTodos();
         model.addAttribute("camisetas", camisetasList);
-        return "admin"; // Retorna o nome da view admin.html (Questão 5)
+        return "admin"; // Questão 5
     }
 
     @GetMapping("/cadastro")
     public String cadastrar(Model model) {
+        // Questão 6: Retornar formulário de cadastro usando DTO
         model.addAttribute("camisetaDto", new camisetaDTO());
-        return "cadastro"; // Retorna o nome da view cadastro.html (Questão 6)
+        return "cadastro"; // Questão 6
     }
 
     @GetMapping("/login")
@@ -64,6 +68,7 @@ public class camisetasController {
 
     @GetMapping("/editar")
     public String editar(@RequestParam Long id, Model model) {
+        // Questão 7: Buscar dados no banco para preencher o formulário
         camisetas camiseta = service.buscarPorId(id);
 
         camisetaDTO dto = new camisetaDTO();
@@ -77,13 +82,13 @@ public class camisetasController {
         dto.setCodigoSku(camiseta.getCodigoSku());
         
         model.addAttribute("camisetaDto", dto);
-        return "editar"; // Retorna o nome da view editar.html (Questão 7)
+        return "editar"; // Questão 7
     }
 
     @PostMapping("/salvar")
     public String salvar(@Valid @ModelAttribute("camisetaDto") camisetaDTO dto, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+        // Questão 8: Validar atributos e retornar erro se necessário
         if (result.hasErrors()) {
-            // Retorna para o formulário de origem correspondente
             if (dto.getId() == null) {
                 return "cadastro";
             } else {
@@ -94,7 +99,7 @@ public class camisetasController {
         camisetas camiseta;
         if (dto.getId() == null) {
             camiseta = new camisetas();
-            // Selecionar imagem aleatória (Questão 6/8)
+            // Questão 6 e 8: Selecionar imagem aleatória da pasta static
             List<String> imagens = Arrays.asList(
                 "/images/camisa-ov1.png",
                 "/images/camisa-ov2.png",
@@ -105,6 +110,7 @@ public class camisetasController {
             String randomImg = imagens.get(new Random().nextInt(imagens.size()));
             camiseta.setImgUrl(randomImg);
         } else {
+            // Lógica para edição
             camiseta = service.buscarPorId(dto.getId());
             if (dto.getImgUrl() != null && !dto.getImgUrl().isEmpty()) {
                 camiseta.setImgUrl(dto.getImgUrl());
@@ -119,13 +125,15 @@ public class camisetasController {
         camiseta.setCodigoSku(dto.getCodigoSku());
 
         service.salvar(camiseta);
+        // Questão 8 e 19: Mensagem de sucesso via RedirectAttributes
         redirectAttributes.addFlashAttribute("mensagem", "Camiseta salva com sucesso!");
-        return "redirect:/admin"; // Redireciona para o admin (Questão 8)
+        return "redirect:/admin"; // Questão 8
     }
 
     @GetMapping("/detalhe/{id}")
     public String detalhe(@PathVariable Long id, Model model) {
-        camisetas camiseta = service.buscarPorId(id); // Lança erro se não achar (Questão 9)
+        // Questão 9: Rota de detalhes dinâmicos com @PathVariable
+        camisetas camiseta = service.buscarPorId(id); 
         model.addAttribute("item", camiseta);
         return "detalhe";
     }
@@ -133,39 +141,45 @@ public class camisetasController {
     @GetMapping("/deletar")
     public String deletar(@RequestParam Long id, RedirectAttributes redirectAttributes) {
         camisetas camiseta = service.buscarPorId(id);
-        camiseta.setIsDeleted(new Date()); // Soft-delete (Questão 10)
+        // Questão 10: Soft-delete gravando data atual (Long)
+        camiseta.setIsDeleted(System.currentTimeMillis()); 
         service.salvar(camiseta);
+        // Questão 19: Mensagem via RedirectAttributes
         redirectAttributes.addFlashAttribute("mensagem", "Camiseta deletada com sucesso!");
-        return "redirect:/index";
+        return "redirect:/index"; // Questão 10
     }
 
     @GetMapping("/restaurar")
     public String restaurar(@RequestParam Long id, RedirectAttributes redirectAttributes) {
         camisetas camiseta = service.buscarPorId(id);
-        camiseta.setIsDeleted(null); // Restaurar (Questão 10)
+        // Questão 10: Restaurar (isDeleted = null)
+        camiseta.setIsDeleted(null); 
         service.salvar(camiseta);
         redirectAttributes.addFlashAttribute("mensagem", "Camiseta restaurada com sucesso!");
-        return "redirect:/index";
+        return "redirect:/index"; // Questão 10
     }
 
     @GetMapping("/adicionarCarrinho")
     public String adicionarCarrinho(@RequestParam Long id, HttpSession session) {
+        // Questão 11: Adicionar objeto na Sessão HTTP no atributo "carrinho"
         camisetas camiseta = service.buscarPorId(id);
         List<camisetas> carrinho = (List<camisetas>) session.getAttribute("carrinho");
         if (carrinho == null) {
             carrinho = new ArrayList<>();
         }
         carrinho.add(camiseta);
-        session.setAttribute("carrinho", carrinho); // Adiciona na sessão (Questão 11)
-        return "redirect:/index";
+        session.setAttribute("carrinho", carrinho); 
+        return "redirect:/index"; // Questão 11
     }
 
     @GetMapping("/verCarrinho")
     public String verCarrinho(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+        // Questão 12: Listar itens do "carrinho" da Sessão
         List<camisetas> carrinho = (List<camisetas>) session.getAttribute("carrinho");
         if (carrinho == null || carrinho.isEmpty()) {
+            // Redireciona com mensagem se vazio
             redirectAttributes.addFlashAttribute("mensagem", "Não existem itens no seu carrinho de compras.");
-            return "redirect:/index"; // Redireciona se carrinho vazio (Questão 12)
+            return "redirect:/index"; 
         }
 
         BigDecimal total = BigDecimal.ZERO;
@@ -176,14 +190,15 @@ public class camisetasController {
         }
 
         model.addAttribute("total", total);
-        return "carrinho";
+        return "carrinho"; // Questão 12
     }
 
     @GetMapping("/finalizarCompra")
     public String finalizarCompra(HttpSession session, RedirectAttributes redirectAttributes) {
-        session.invalidate(); // Invalida a sessão (Questão 13)
+        // Questão 13: Invalidar Sessão
+        session.invalidate(); 
         redirectAttributes.addFlashAttribute("mensagem", "Compra finalizada com sucesso!");
-        return "redirect:/index";
+        return "redirect:/index"; // Questão 13
     }
 }
 

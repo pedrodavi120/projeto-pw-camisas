@@ -13,19 +13,22 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity // Questão 14
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
+                // Questão 15: Controle de Acesso Baseado em Papéis (RBAC)
                 .requestMatchers("/css/**", "/images/**", "/js/**").permitAll()
-                .requestMatchers("/", "/index", "/detalhe/**", "/login", "/logout").permitAll()
+                .requestMatchers("/login", "/logout").permitAll()
+                // Questão 15: Cadastro e Exclusão exclusivos para ADMIN
                 .requestMatchers("/cadastro", "/editar", "/deletar", "/restaurar", "/salvar", "/admin").hasRole("ADMIN")
+                // Questão 15: Demais rotas exigem autenticação
                 .anyRequest().authenticated()
             )
-            .formLogin(form -> form
+            .formLogin(form -> form // Questão 15: Página de login padrão
                 .loginPage("/login")
                 .defaultSuccessUrl("/", true)
                 .permitAll()
@@ -39,6 +42,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
+        // Questão 14: Usuários em memória com senhas hasheadas por BCrypt
         UserDetails admin = User.withUsername("Administrador")
                 .password(passwordEncoder().encode("admin123"))
                 .roles("ADMIN")
@@ -54,6 +58,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+        // Questão 14: Definição do BCryptPasswordEncoder
         return new BCryptPasswordEncoder();
     }
 }

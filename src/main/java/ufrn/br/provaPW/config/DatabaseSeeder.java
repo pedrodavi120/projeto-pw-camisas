@@ -79,7 +79,7 @@ public class DatabaseSeeder implements CommandLineRunner {
             c6.setImgUrl("/images/camisa-ov1.png");
             c6.setCodigoSku("APX-1006");
             // Salvando uma camiseta deletada logicamente para verificação da tela admin
-            c6.setIsDeleted(new Date());
+            c6.setIsDeleted(System.currentTimeMillis());
 
             repository.save(c1);
             repository.save(c2);
