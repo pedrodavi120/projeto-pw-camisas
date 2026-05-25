@@ -19,8 +19,8 @@
         <!-- Left Menu -->
         <div class="nav-group">
             <a th:href="@{/index}">Coleção</a>
-            <a th:href="@{/admin}" sec:authorize="hasRole('ROLE_ADMIN')">Administrador</a>
-            <a th:href="@{/cadastro}" sec:authorize="hasRole('ROLE_ADMIN')">Novo Item</a>
+            <a th:href="@{/admin}" sec:authorize="hasRole('ADMIN')">Administrador</a>
+            <a th:href="@{/cadastro}" sec:authorize="hasRole('ADMIN')">Novo Item</a>
         </div>
 
         <!-- Center Logo -->

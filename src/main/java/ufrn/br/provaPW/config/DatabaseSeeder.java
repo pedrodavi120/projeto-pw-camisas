@@ -12,13 +12,22 @@ import java.util.Date;
 public class DatabaseSeeder implements CommandLineRunner {
 
     private final camisetasRepository repository;
+    private final org.springframework.jdbc.core.JdbcTemplate jdbcTemplate;
 
-    public DatabaseSeeder(camisetasRepository repository) {
+    public DatabaseSeeder(camisetasRepository repository, org.springframework.jdbc.core.JdbcTemplate jdbcTemplate) {
         this.repository = repository;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        try {
+            jdbcTemplate.execute("ALTER TABLE camisetas ALTER COLUMN is_deleted TYPE bigint USING (EXTRACT(EPOCH FROM is_deleted) * 1000)::bigint");
+            System.out.println("Coluna is_deleted migrada com sucesso para bigint!");
+        } catch (Exception e) {
+            System.out.println("Nota de Migração: " + e.getMessage());
+        }
+
         if (repository.count() == 0) {
             camisetas c1 = new camisetas();
             c1.setNome("Camiseta Pima Premium");
